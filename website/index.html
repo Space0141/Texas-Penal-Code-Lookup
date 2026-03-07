@@ -1,0 +1,73 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Texas Penal Code Lookup (Web)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="brand">
+          <img src="logo.png" alt="Texas Penal Code Lookup" class="brand-mark" />
+          <h1 class="brand-title">Texas Penal Code Lookup</h1>
+        </div>
+
+        <div class="search-wrap">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search by code (e.g. 22.01) or description (e.g. speeding, ran from police)"
+            autocomplete="off"
+          />
+          <button id="clearBtn" class="secondary">Clear</button>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <aside class="left-panel">
+          <div class="panel-head">
+            <h2>Results</h2>
+            <span id="resultCount">0</span>
+          </div>
+          <div class="result-filters">
+            <select id="resultFilter">
+              <option value="all">All Results</option>
+              <option value="code">Code Matches</option>
+              <option value="text">Description Matches</option>
+            </select>
+          </div>
+          <ul id="resultsList" class="results-list"></ul>
+        </aside>
+
+        <main class="right-panel">
+          <div id="emptyState" class="empty-state">Select a code from results.</div>
+
+          <article id="detailCard" class="detail-card hidden">
+            <div class="detail-head">
+              <div>
+                <p id="codeNumber" class="code-number"></p>
+                <h2 id="offenseTitle"></h2>
+              </div>
+              <button id="copyBtn">Copy</button>
+            </div>
+
+            <section>
+              <h3>Legal Statute</h3>
+              <p id="statuteText"></p>
+              <a id="sourceLink" href="#" target="_blank" rel="noopener noreferrer">Open official source</a>
+            </section>
+
+            <section>
+              <h3>Plain English</h3>
+              <p id="plainEnglish"></p>
+            </section>
+          </article>
+        </main>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
