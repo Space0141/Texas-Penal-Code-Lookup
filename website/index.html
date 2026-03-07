@@ -1,26 +1,31 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Texas Penal Code Lookup (Web)</title>
+    <title>Texas Penal Code Lookup</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
+      <div class="window-bar" aria-label="Window bar">
+        <div class="window-title"><img src="assets/logo.png" alt="Texas Penal Code Lookup" class="window-title-icon" onerror="this.style.display='none'" /><span>Texas Penal Code Lookup</span></div>
+        <div class="window-controls" aria-label="Window controls">
+          <button id="minimizeBtn" class="window-btn" aria-label="Minimize" title="Minimize">-</button>
+          <button id="maximizeBtn" class="window-btn" aria-label="Maximize" title="Maximize">&#x2610;</button>
+          <button id="closeBtn" class="window-btn close" aria-label="Close" title="Close">X</button>
+        </div>
+      </div>
+
       <header class="top-bar">
         <div class="brand">
-          <img src="logo.png" alt="Texas Penal Code Lookup" class="brand-mark" />
+          <img src="assets/logo.png" alt="Texas Penal Code Lookup" class="brand-mark" onerror="this.style.display='none'" />
           <h1 class="brand-title">Texas Penal Code Lookup</h1>
         </div>
 
         <div class="search-wrap">
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="Search by code (e.g. 22.01) or description (e.g. speeding, ran from police)"
-            autocomplete="off"
-          />
+          <input id="searchInput" type="text" placeholder="Search by code (e.g. 22.01) or description (e.g. ran from police)" autocomplete="off" />
           <button id="clearBtn" class="secondary">Clear</button>
         </div>
       </header>
@@ -42,7 +47,9 @@
         </aside>
 
         <main class="right-panel">
-          <div id="emptyState" class="empty-state">Select a code from results.</div>
+          <div id="emptyState" class="empty-state">
+            Select a Penal Code from results.
+          </div>
 
           <article id="detailCard" class="detail-card hidden">
             <div class="detail-head">
@@ -63,6 +70,8 @@
               <h3>Plain English</h3>
               <p id="plainEnglish"></p>
             </section>
+
+            <p id="cacheStatus" class="cache-status"></p>
           </article>
         </main>
       </section>

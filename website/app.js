@@ -19,7 +19,10 @@ const ui = {
   statuteText: document.getElementById('statuteText'),
   plainEnglish: document.getElementById('plainEnglish'),
   sourceLink: document.getElementById('sourceLink'),
-  copyBtn: document.getElementById('copyBtn')
+  copyBtn: document.getElementById('copyBtn'),
+  minimizeBtn: document.getElementById('minimizeBtn'),
+  maximizeBtn: document.getElementById('maximizeBtn'),
+  closeBtn: document.getElementById('closeBtn')
 };
 
 const SUPPLEMENTAL_ENTRIES = [
@@ -27,19 +30,16 @@ const SUPPLEMENTAL_ENTRIES = [
     code: '545.351',
     codeSystem: 'Transportation Code',
     title: 'Maximum Speed Requirement',
-    statuteText:
-      'An operator may not drive at a speed greater than is reasonable and prudent under the circumstances then existing.',
-    plainEnglish:
-      'Driving faster than is safe for conditions can be cited as speeding, even if no specific posted limit is exceeded.',
-    keywords: ['speeding', 'too fast', 'unsafe speed', 'excessive speed', 'driving too fast'],
+    statuteText: 'An operator may not drive at a speed greater than is reasonable and prudent under the circumstances then existing.',
+    plainEnglish: 'Driving faster than is safe for conditions can be cited as speeding, even if no specific posted limit is exceeded.',
+    keywords: ['speeding', 'too fast', 'unsafe speed', 'excessive speed', 'speed violation', 'driving too fast'],
     sourceUrl: 'https://statutes.capitol.texas.gov/Docs/TN/htm/TN.545.htm#545.351'
   },
   {
     code: '545.352',
     codeSystem: 'Transportation Code',
     title: 'Prima Facie Speed Limits',
-    statuteText:
-      'Defines posted and default speed limits and when exceeding those limits is prima facie evidence of unreasonable speed.',
+    statuteText: 'Defines posted and default speed limits and when exceeding those limits is prima facie evidence of unreasonable speed.',
     plainEnglish: 'Covers posted speed limits and default limits by roadway type.',
     keywords: ['speed limit', 'over posted speed', 'school zone speed', 'construction zone speed', '55 in 35'],
     sourceUrl: 'https://statutes.capitol.texas.gov/Docs/TN/htm/TN.545.htm#545.352'
@@ -48,8 +48,7 @@ const SUPPLEMENTAL_ENTRIES = [
     code: '545.401',
     codeSystem: 'Transportation Code',
     title: 'Reckless Driving',
-    statuteText:
-      'A person commits an offense if the person drives a vehicle in willful or wanton disregard for the safety of persons or property.',
+    statuteText: 'A person commits an offense if the person drives a vehicle in willful or wanton disregard for the safety of persons or property.',
     plainEnglish: 'Dangerous driving behavior may be charged as reckless driving.',
     keywords: ['reckless driving', 'dangerous driving', 'high speed chase', 'aggressive driving'],
     sourceUrl: 'https://statutes.capitol.texas.gov/Docs/TN/htm/TN.545.htm#545.401'
@@ -85,10 +84,7 @@ function bindEvents() {
     const selected = getSelected();
     if (!selected) return;
 
-    const codeLabel = selected.codeSystem
-      ? `Texas ${selected.codeSystem}`
-      : 'Texas Penal Code';
-
+    const codeLabel = selected.codeSystem ? `Texas ${selected.codeSystem}` : 'Texas Penal Code';
     const text = [
       `${codeLabel} ${selected.code}`,
       selected.title,
@@ -100,11 +96,19 @@ function bindEvents() {
 
     await navigator.clipboard.writeText(text);
     ui.copyBtn.textContent = 'Copied';
-    setTimeout(() => (ui.copyBtn.textContent = 'Copy'), 900);
+    setTimeout(() => {
+      ui.copyBtn.textContent = 'Copy';
+    }, 900);
+  });
+
+  [ui.minimizeBtn, ui.maximizeBtn, ui.closeBtn].forEach((btn) => {
+    btn?.addEventListener('click', (event) => event.preventDefault());
   });
 
   window.addEventListener('keydown', (event) => {
-    if (event.ctrlKey && event.key.toLowerCase() === 'k') {
+    const key = event.key.toLowerCase();
+
+    if (event.ctrlKey && key === 'k') {
       event.preventDefault();
       ui.searchInput?.focus();
       ui.searchInput?.select();
@@ -124,10 +128,7 @@ function onFilterChange() {
 
 function updateResults() {
   const query = state.query;
-  const baseResults = query
-    ? rankMatches(state.dataset, query).slice(0, 80)
-    : [...state.dataset];
-
+  const baseResults = query ? rankMatches(state.dataset, query).slice(0, 80) : [...state.dataset];
   state.filtered = applyResultFilter(baseResults, query, state.resultFilter);
   renderResults(state.filtered);
 
@@ -138,8 +139,8 @@ function updateResults() {
 
 function applyResultFilter(items, query, filterType) {
   if (!filterType || filterType === 'all') return items;
-  const q = (query || '').toLowerCase();
 
+  const q = (query || '').toLowerCase();
   if (filterType === 'code') {
     if (!q) return items;
     return items.filter((item) => String(item.code).toLowerCase().includes(q));
@@ -196,6 +197,8 @@ function rankMatches(items, rawQuery) {
 }
 
 function renderResults(results) {
+  if (!ui.resultCount || !ui.resultsList) return;
+
   ui.resultCount.textContent = String(results.length);
   ui.resultsList.innerHTML = '';
 
@@ -227,11 +230,11 @@ function selectCode(code) {
   ui.emptyState?.classList.add('hidden');
   ui.detailCard?.classList.remove('hidden');
 
-  const label = item.codeSystem
+  const codeLabel = item.codeSystem
     ? `Texas ${item.codeSystem} \u00A7${item.code}`
     : `Texas Penal Code \u00A7${item.code}`;
 
-  ui.codeNumber.textContent = label;
+  ui.codeNumber.textContent = codeLabel;
   ui.offenseTitle.textContent = item.title;
   ui.statuteText.textContent = item.statuteText;
   ui.plainEnglish.textContent = item.plainEnglish;
@@ -265,9 +268,9 @@ function mergeAliasKeywords(items, aliases) {
 
 async function fetchJson(path, fallback) {
   try {
-    const res = await fetch(path);
-    if (!res.ok) return fallback;
-    return await res.json();
+    const response = await fetch(path);
+    if (!response.ok) return fallback;
+    return await response.json();
   } catch {
     return fallback;
   }
