@@ -1,20 +1,10 @@
-# Penal Lookup Website
+# Website Folder
 
-This `website` folder contains a browser-ready version of the app.
+This folder now contains newly created website files:
 
-## Run locally
-
-```powershell
-cd "C:\Users\cassi\Documents\Penal Lookup\website"
-python -m http.server 8080
-```
-
-Open: http://localhost:8080
-
-## Files
-
-- `index.html`
-- `styles.css`
-- `renderer.js`
-- `assets/`
-- `data/`
+- index.html
+- styles.css
+- config.js
+- app.js
+- assets/
+- data/
