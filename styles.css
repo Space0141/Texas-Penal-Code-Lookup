@@ -26,7 +26,7 @@ body {
 
 .app-shell {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto 1fr;
   min-height: 100vh;
   height: 100vh;
   overflow: hidden;
@@ -319,39 +319,4 @@ button.secondary {
   .brand-title {
     font-size: 1.4rem;
   }
-}\n\n
-.result-fav-btn {
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-}
-
-.result-fav-btn.active {
-  border-color: var(--success);
-  color: var(--success);
-}
-
-
-/* Website-only overrides */
-.window-bar {
-  display: none;
-}
-
-#favoriteBtn,
-#favoritesBar,
-.result-fav-btn {
-  display: none !important;
-}
-
-body {
-  height: auto;
-  overflow: auto;
-}
-
-.app-shell {
-  height: auto;
-  min-height: 100vh;
 }

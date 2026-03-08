@@ -1,6 +1,5 @@
 const CACHE_KEY = 'penal_lookup_cache_v2';
 const KEYWORD_ALIAS_PATH = 'data/keyword_aliases.json';
-const FAVORITES_KEY = 'penal_lookup_favorites_v1';
 
 const SUPPLEMENTAL_ENTRIES = [
   {
@@ -84,7 +83,8 @@ const ui = {
   plainEnglish: document.getElementById('plainEnglish'),
   sourceLink: document.getElementById('sourceLink'),
   cacheStatus: document.getElementById('cacheStatus'),
-  copyBtn: document.getElementById('copyBtn'),  minimizeBtn: document.getElementById('minimizeBtn'),
+  copyBtn: document.getElementById('copyBtn'),
+  minimizeBtn: document.getElementById('minimizeBtn'),
   maximizeBtn: document.getElementById('maximizeBtn'),
   closeBtn: document.getElementById('closeBtn')
 };
@@ -101,14 +101,13 @@ async function init() {
     state.dataset = appendSupplementalEntries(state.dataset);
     const aliases = await loadKeywordAliases();
     state.dataset = mergeAliasKeywords(state.dataset, aliases);
-    state.filtered = [...state.dataset];    renderResults(state.filtered);
-    renderFavorites();
+    state.filtered = [...state.dataset];
+    renderResults(state.filtered);
   } catch (error) {
     console.error(error);
     state.dataset = [];
     state.filtered = [];
     renderResults([]);
-    renderFavorites();
     ui.emptyState.textContent = 'Failed to load penal code dataset.';
   }
 }
@@ -145,7 +144,9 @@ function bindEvents() {
     setTimeout(() => {
       ui.copyBtn.textContent = 'Copy';
     }, 900);
-  });  window.addEventListener('keydown', (event) => {
+  });
+
+  window.addEventListener('keydown', (event) => {
     const key = event.key.toLowerCase();
 
     if (event.ctrlKey && key === 'k') {
@@ -201,7 +202,6 @@ function updateResults() {
 
   state.filtered = applyResultFilter(baseResults, query, state.resultFilter);
   renderResults(state.filtered);
-  renderFavorites();
 
   if (state.filtered.length === 1) {
     selectCode(state.filtered[0].code);
@@ -298,34 +298,7 @@ function renderResults(results) {
       li.classList.add('active');
     }
 
-    const head = document.createElement('div');
-    head.className = 'result-item-head';
-
-    const title = document.createElement('strong');
-    title.textContent = `${result.code} - ${result.title}`;
-
-    const favBtn = document.createElement('button');
-    favBtn.type = 'button';
-    favBtn.className = 'result-fav-btn';
-    const isFavorite = state.favoriteCodes.includes(String(result.code));
-    if (isFavorite) {
-      favBtn.classList.add('active');
-    }
-    favBtn.textContent = isFavorite ? 'Saved' : 'Save';
-    favBtn.title = isFavorite ? 'Remove favorite' : 'Add favorite';
-    favBtn.addEventListener('click', (event) => {
-      event.stopPropagation();
-      toggleFavorite(result.code);
-    });
-
-    const summary = document.createElement('p');
-    summary.textContent = result.plainEnglish;
-
-    head.appendChild(title);
-    head.appendChild(favBtn);
-    li.appendChild(head);
-    li.appendChild(summary);
-
+    li.innerHTML = `<strong>${result.code} - ${result.title}</strong><p>${result.plainEnglish}</p>`;
     li.addEventListener('click', () => selectCode(result.code));
     ui.resultsList.appendChild(li);
   }
@@ -337,7 +310,6 @@ async function selectCode(code) {
   if (!item) return;
 
   renderResults(state.filtered);
-  renderFavorites();
   ui.emptyState?.classList.add('hidden');
   ui.detailCard?.classList.remove('hidden');
 
@@ -463,5 +435,4 @@ async function loadDatasetFallback() {
 async function fetchStatuteFallback() {
   return { ok: false, error: 'Remote statute fetch is unavailable in web mode.' };
 }
-
 
