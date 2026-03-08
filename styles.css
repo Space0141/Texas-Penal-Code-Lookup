@@ -319,19 +319,4 @@ button.secondary {
   .brand-title {
     font-size: 1.4rem;
   }
-}\n\n
-.result-fav-btn {
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 0.8rem;
 }
-
-.result-fav-btn.active {
-  border-color: var(--success);
-  color: var(--success);
-}
-
-
