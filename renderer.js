@@ -108,7 +108,7 @@ async function init() {
     state.dataset = [];
     state.filtered = [];
     renderResults([]);
-    ui.emptyState.textContent = 'Failed to load penal code dataset.';
+    ui.emptyState.textContent = 'Failed to load dataset. Run website with a local server (example: python -m http.server 8080).';
   }
 }
 
@@ -435,4 +435,5 @@ async function loadDatasetFallback() {
 async function fetchStatuteFallback() {
   return { ok: false, error: 'Remote statute fetch is unavailable in web mode.' };
 }
+
 
