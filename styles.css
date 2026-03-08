@@ -393,3 +393,38 @@ button.secondary {
   border-color: var(--success);
   color: var(--success);
 }
+
+/* Website mode overrides */
+body {
+  min-height: 100vh;
+  height: auto;
+  overflow: auto;
+}
+
+.app-shell {
+  min-height: 100vh;
+  height: auto;
+}
+
+.window-bar {
+  display: none;
+}
+
+.top-bar,
+.brand,
+.search-wrap,
+.search-wrap *,
+input,
+button,
+a,
+select {
+  -webkit-app-region: initial;
+}
+
+.content-grid {
+  min-height: 420px;
+}
+
+.right-panel {
+  overflow: auto;
+}

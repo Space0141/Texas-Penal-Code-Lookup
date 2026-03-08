@@ -1,10 +1,8 @@
 # Penal Lookup Website
 
-This folder is a standalone browser version of Penal Lookup.
+This `website` folder contains a browser-ready version of the app.
 
 ## Run locally
-
-From project root:
 
 ```powershell
 cd "C:\Users\cassi\Documents\Penal Lookup\website"
@@ -13,12 +11,10 @@ python -m http.server 8080
 
 Open: http://localhost:8080
 
-## Included
+## Files
 
 - `index.html`
 - `styles.css`
 - `renderer.js`
 - `assets/`
 - `data/`
-
-Favorites work in browser localStorage.
