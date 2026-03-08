@@ -1,6 +1,7 @@
 const CACHE_KEY = 'penal_lookup_cache_v2';
 const KEYWORD_ALIAS_PATH = 'data/keyword_aliases.json';
 const FAVORITES_KEY = 'penal_lookup_favorites_v1';
+const WEBSITE_REFRESH_MS = 100;
 
 const SUPPLEMENTAL_ENTRIES = [
   {
@@ -99,6 +100,7 @@ const ui = {
 const appApi = buildAppApi();
 
 init();
+startWebsiteAutoUpdate();
 
 async function init() {
   bindEvents();
@@ -560,4 +562,13 @@ function getFavoriteItems() {
 
 
 
+
+
+
+function startWebsiteAutoUpdate() {
+  setInterval(() => {
+    if (document.hidden) return;
+    updateResults();
+  }, WEBSITE_REFRESH_MS);
+}
 
