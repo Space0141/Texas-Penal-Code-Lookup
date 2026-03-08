@@ -67,8 +67,7 @@ const state = {
   filtered: [],
   selectedCode: null,
   query: '',
-  resultFilter: 'all',
-  favoriteCodes: loadFavorites()
+  resultFilter: 'all'
 };
 
 const ui = {
@@ -85,13 +84,7 @@ const ui = {
   plainEnglish: document.getElementById('plainEnglish'),
   sourceLink: document.getElementById('sourceLink'),
   cacheStatus: document.getElementById('cacheStatus'),
-  copyBtn: document.getElementById('copyBtn'),
-  favoriteBtn: document.getElementById('favoriteBtn'),
-  favoritesBar: document.getElementById('favoritesBar'),
-  favoritesList: document.getElementById('favoritesList'),
-  favoritesEmpty: document.getElementById('favoritesEmpty'),
-  favoritesCount: document.getElementById('favoritesCount'),
-  minimizeBtn: document.getElementById('minimizeBtn'),
+  copyBtn: document.getElementById('copyBtn'),  minimizeBtn: document.getElementById('minimizeBtn'),
   maximizeBtn: document.getElementById('maximizeBtn'),
   closeBtn: document.getElementById('closeBtn')
 };
@@ -108,10 +101,7 @@ async function init() {
     state.dataset = appendSupplementalEntries(state.dataset);
     const aliases = await loadKeywordAliases();
     state.dataset = mergeAliasKeywords(state.dataset, aliases);
-    state.filtered = [...state.dataset];
-    state.favoriteCodes = state.favoriteCodes.filter((code) => state.dataset.some((item) => String(item.code) === String(code)));
-    saveFavorites(state.favoriteCodes);
-    renderResults(state.filtered);
+    state.filtered = [...state.dataset];    renderResults(state.filtered);
     renderFavorites();
   } catch (error) {
     console.error(error);
@@ -155,15 +145,7 @@ function bindEvents() {
     setTimeout(() => {
       ui.copyBtn.textContent = 'Copy';
     }, 900);
-  });
-
-  ui.favoriteBtn?.addEventListener('click', () => {
-    const selected = getSelected();
-    if (!selected) return;
-    toggleFavorite(selected.code);
-  });
-
-  window.addEventListener('keydown', (event) => {
+  });  window.addEventListener('keydown', (event) => {
     const key = event.key.toLowerCase();
 
     if (event.ctrlKey && key === 'k') {
@@ -367,7 +349,6 @@ async function selectCode(code) {
   if (ui.offenseTitle) ui.offenseTitle.textContent = item.title;
   if (ui.plainEnglish) ui.plainEnglish.textContent = item.plainEnglish;
   if (ui.sourceLink) ui.sourceLink.href = item.sourceUrl;
-  updateFavoriteButton(item.code);
 
   const cached = state.cache[item.code];
   if (cached && cached.statuteText) {
@@ -482,86 +463,6 @@ async function loadDatasetFallback() {
 async function fetchStatuteFallback() {
   return { ok: false, error: 'Remote statute fetch is unavailable in web mode.' };
 }
-
-
-function loadFavorites() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
-    return Array.isArray(parsed) ? parsed.map((code) => String(code)) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveFavorites(favoriteCodes) {
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoriteCodes));
-}
-
-function toggleFavorite(code) {
-  const normalized = String(code);
-  const exists = state.favoriteCodes.includes(normalized);
-
-  if (exists) {
-    state.favoriteCodes = state.favoriteCodes.filter((c) => c !== normalized);
-  } else {
-    state.favoriteCodes = [normalized, ...state.favoriteCodes];
-  }
-
-  saveFavorites(state.favoriteCodes);
-  renderResults(state.filtered);
-  renderFavorites();
-  updateFavoriteButton(normalized);
-}
-
-function renderFavorites() {
-  if (!ui.favoritesList || !ui.favoritesEmpty || !ui.favoritesCount) return;
-
-  ui.favoritesList.innerHTML = '';
-  const favoriteItems = getFavoriteItems();
-  ui.favoritesCount.textContent = String(favoriteItems.length);
-
-  if (!favoriteItems.length) {
-    ui.favoritesEmpty.classList.remove('hidden');
-    return;
-  }
-
-  ui.favoritesEmpty.classList.add('hidden');
-
-  for (const item of favoriteItems) {
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'favorite-chip';
-    chip.textContent = `${item.code} - ${item.title}`;
-
-    if (item.code === state.selectedCode) {
-      chip.classList.add('active');
-    }
-
-    chip.addEventListener('click', () => {
-      selectCode(item.code);
-    });
-
-    ui.favoritesList.appendChild(chip);
-  }
-}
-
-function updateFavoriteButton(code) {
-  if (!ui.favoriteBtn) return;
-  const isFavorite = state.favoriteCodes.includes(String(code));
-  ui.favoriteBtn.textContent = isFavorite ? 'Unfavorite' : 'Favorite';
-  ui.favoriteBtn.setAttribute('aria-pressed', isFavorite ? 'true' : 'false');
-}
-
-function getFavoriteItems() {
-  const byCode = new Map(state.dataset.map((item) => [String(item.code), item]));
-  return state.favoriteCodes.map((code) => byCode.get(String(code))).filter(Boolean);
-}
-
-
-
-
-
-
 
 
 
