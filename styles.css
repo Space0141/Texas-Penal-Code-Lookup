@@ -26,7 +26,7 @@ body {
 
 .app-shell {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto 1fr auto;
   min-height: 100vh;
   height: 100vh;
   overflow: hidden;
@@ -319,4 +319,77 @@ button.secondary {
   .brand-title {
     font-size: 1.4rem;
   }
+}
+.detail-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.favorites-bar {
+  border-top: 1px solid var(--border);
+  background: rgba(11, 16, 23, 0.97);
+  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.favorites-bar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.favorites-bar-head h2 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.favorites-empty {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.favorites-list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.favorite-chip {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.favorite-chip.active,
+.favorite-chip:hover {
+  border-color: var(--accent);
+}
+
+
+.result-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.result-fav-btn {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.result-fav-btn.active {
+  border-color: var(--success);
+  color: var(--success);
 }

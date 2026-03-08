@@ -1,0 +1,74 @@
+[
+  {
+    "code": "22.01",
+    "title": "Assault",
+    "statuteText": "A person commits an offense if the person intentionally, knowingly, or recklessly causes bodily injury to another, threatens imminent bodily injury, or causes offensive physical contact.",
+    "plainEnglish": "Covers hitting, hurting, threatening, or offensive contact with another person.",
+    "keywords": ["assault", "punched", "hit", "fight", "slapped", "threatened", "bodily injury"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.01",
+    "common": true
+  },
+  {
+    "code": "28.03",
+    "title": "Criminal Mischief",
+    "statuteText": "A person commits an offense if, without effective consent, the person intentionally or knowingly damages or destroys tangible property of the owner.",
+    "plainEnglish": "Damaging or destroying someone else\'s property, like breaking windows.",
+    "keywords": ["vandalism", "window", "broke", "damage", "destroyed", "spray paint", "criminal mischief"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.28.htm#28.03",
+    "common": true
+  },
+  {
+    "code": "31.03",
+    "title": "Theft",
+    "statuteText": "A person commits an offense if the person unlawfully appropriates property with intent to deprive the owner of property.",
+    "plainEnglish": "Taking property without consent intending to keep it from the owner.",
+    "keywords": ["theft", "stole", "shoplifting", "took", "larceny", "stolen", "car theft"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.31.htm#31.03",
+    "common": true
+  },
+  {
+    "code": "31.07",
+    "title": "Unauthorized Use of a Vehicle",
+    "statuteText": "A person commits an offense if the person intentionally or knowingly operates another\'s boat, airplane, or motor-propelled vehicle without the effective consent of the owner.",
+    "plainEnglish": "Using someone else\'s vehicle without permission, even if no intent to permanently steal.",
+    "keywords": ["car", "vehicle", "joyride", "unauthorized", "stole a car", "uuv"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.31.htm#31.07",
+    "common": true
+  },
+  {
+    "code": "38.04",
+    "title": "Evading Arrest or Detention",
+    "statuteText": "A person commits an offense if the person intentionally flees from a person the actor knows is a peace officer or federal special investigator attempting lawfully to arrest or detain the actor.",
+    "plainEnglish": "Running away from law enforcement during a lawful attempt to stop, detain, or arrest.",
+    "keywords": ["ran", "fled", "evading", "evade", "from police", "foot pursuit", "detention"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.38.htm#38.04",
+    "common": true
+  },
+  {
+    "code": "49.04",
+    "title": "Driving While Intoxicated",
+    "statuteText": "A person commits an offense if the person is intoxicated while operating a motor vehicle in a public place.",
+    "plainEnglish": "Operating a motor vehicle in public while intoxicated.",
+    "keywords": ["dwi", "dui", "intoxicated", "drunk driving", "alcohol", "impaired"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.49.htm#49.04",
+    "common": true
+  },
+  {
+    "code": "30.02",
+    "title": "Burglary",
+    "statuteText": "A person commits an offense if, without effective consent, the person enters a habitation or building not then open to the public, with intent to commit a felony, theft, or assault.",
+    "plainEnglish": "Entering a building or home without consent to commit theft, assault, or another felony.",
+    "keywords": ["burglary", "break in", "home invasion", "entered", "house", "building"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.30.htm#30.02",
+    "common": false
+  },
+  {
+    "code": "30.05",
+    "title": "Criminal Trespass",
+    "statuteText": "A person commits an offense if the person enters or remains on or in property of another without effective consent and had notice that entry was forbidden or received notice to depart but failed to do so.",
+    "plainEnglish": "Being on someone\'s property without permission after notice not to enter or after being told to leave.",
+    "keywords": ["trespass", "no trespassing", "refused to leave", "property", "entered"],
+    "sourceUrl": "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.30.htm#30.05",
+    "common": false
+  }
+]
